@@ -317,7 +317,7 @@ MAP_JS = r"""
     html += `<div class="popup-row"><span class="k">Below Normal</span><span class="v ${gainLossClass(p.buckets.bn)}">${fmtSigned(p.buckets.bn)} AF</span></div>`;
     html += `<div class="popup-row"><span class="k">Dry</span><span class="v ${gainLossClass(p.buckets.dry)}">${fmtSigned(p.buckets.dry)} AF</span></div>`;
     html += `<div class="popup-row"><span class="k">Critical</span><span class="v ${gainLossClass(p.buckets.critical)}">${fmtSigned(p.buckets.critical)} AF</span></div>`;
-    const syExtra = p.sy_source === 'SVSim' ? '' : ' <span style="color:#8a5a18;font-style:italic;font-size:11px;">(region-mean fallback)</span>';
+    const syExtra = ' <span style="color:#8a5a18;font-style:italic;font-size:11px;">(' + (p.sy_source || 'uniform') + ')</span>';
     html += `<div class="popup-row"><span class="k">Specific yield</span><span class="v">${p.sy.toFixed(4)}${syExtra}</span></div>`;
     if (p.late_baseline) {
       html += `<div class="popup-late">Late baseline: this polygon's RMS well wasn't measured in 1999, so its record starts at ${p.baseline_year}. Pre-${p.baseline_year} drawdown is not captured.</div>`;
@@ -343,9 +343,11 @@ MAP_JS = r"""
   }
 
   function sectionLabel(zone) {
-    // SWN like 13N01W07G001M -> "07G"; aggregates (e.g. "Dunnigan") unchanged.
+    // Vina convention: SWN like 13N01W07G001M -> "07G00".
+    // Aggregates (e.g. "Dunnigan") keep their name. Only a fallback — the
+    // build supplies a disambiguated p.map_label.
     return /^\d{2}[NS]\d{2}[EW]\d{2}[A-Z]\d{3}[A-Z]?$/.test(zone)
-      ? zone.substring(6, 9) : zone;
+      ? zone.substring(6, 11) : zone;
   }
 
   const MAPS = {};
@@ -640,9 +642,8 @@ def _render_method_section(method, results, portfolio, zone_colors=None):
         late_marker = (' <span class="late" title="Baseline year > 1999">'
                        f'(record starts {s["baseline_year"]})</span>'
                        if s["baseline_year"] > START_YEAR else "")
-        sy_marker = (f' <span class="fallback" title="Insufficient SVSim borehole '
-                     f'coverage — using region area-weighted mean">(mean)</span>'
-                     if s.get("sy_source", "") != "SVSim" else "")
+        # Sy is uniform across all polygons, so no per-row provenance marker.
+        sy_marker = ""
         cum = s["endpoint_cum_storage_AF"]
         avg = s["avg_rate_AF_per_yr"]
         norm_cum = s.get("normalized_cum_2025_AF", 0)
@@ -738,15 +739,11 @@ def _render_method_section(method, results, portfolio, zone_colors=None):
     late_min = min(_late_years) if _late_years else START_YEAR
     late_max = max(_late_years) if _late_years else START_YEAR
 
-    fallback_polys = [s for s in pol_summaries if s.get("sy_source", "") != "SVSim"]
-    fallback_summary = (", ".join(s["zone_label"] for s in fallback_polys)
-                        if fallback_polys else "none")
+    sy_uniform = sy_lookup[pol_summaries[0]["zone_label"]] if pol_summaries else 0.10
 
     zone_counts = {z: sum(1 for s in pol_summaries if s["ma"] == z) for z in ZONE_ORDER}
     zone_breakdown = " · ".join(f"{n} {z}" for z, n in zone_counts.items() if n)
 
-    sy_min = min(sy_lookup.values())
-    sy_max = max(sy_lookup.values())
 
     # Reassignment notice — only for the zoned method
     reassigned_polys = [s for s in pol_summaries
@@ -856,9 +853,8 @@ def _render_method_section(method, results, portfolio, zone_colors=None):
 <h2>Method, in brief</h2>
 <p>Per polygon: ΔStorage<sub>p,y</sub> = (GWE<sub>p,y</sub> − GWE<sub>p,baseline</sub>) × Sy<sub>p</sub> × Area<sub>p</sub>. GWE<sub>p,y</sub> is the polygon's RMS well's spring composite (March mean for SWN-named wells), Good-quality DWR records only. Each polygon is anchored to WY 1999 if it has a Good spring composite that year; otherwise to the polygon's first observation after 1999. We then take the per-polygon cumulative storage time series, compute year-over-year deltas (distributing multi-year DWR gaps evenly), and bucket each year by its <strong>official Sacramento Valley Index water-year type</strong>.</p>
 
-<p><strong>Specific yield is polygon-by-polygon</strong>, derived from DWR's SVSim Texture Data (Sacramento Valley Simulation Model v1.0). Coarse-grained sediments → Sy = 0.15, fine-grained → Sy = 0.05, area-weighted by borehole lithology in the 0–500 ft below ground surface analysis window. Polygon Sy values range <strong>{sy_min:.4f}</strong> to <strong>{sy_max:.4f}</strong>.</p>
+<p><strong>Specific yield is uniform: Sy = {sy_uniform:.2f}</strong> for every polygon. A per-polygon Sy derived from DWR's SVSim Texture Data (Sacramento Valley Simulation Model v1.0) is still computed by <code>scripts/build_sy_svsim.py</code> and written to <code>data/polygon_sy_svsim_*.csv</code> for reference — it ranged 0.0565–0.0986 with an area-weighted mean of ≈0.077 — but the storage numbers on this page use the flat 0.10. Storage scales linearly with Sy, so the SVSim basis would give a deficit roughly 30% smaller.</p>
 
-<p style="font-size:13px;color:var(--ink-muted);">{len(fallback_polys)} polygon{"s" if len(fallback_polys) != 1 else ""} ({fallback_summary}) have insufficient SVSim borehole coverage and use the region area-weighted mean as a Sy fallback. Flagged with "(mean)" in the table.</p>
 
 <p>Year-type classification uses DWR's Sacramento Valley Index (Northern Sierra 8-Station Index):</p>
 <ul>

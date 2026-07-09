@@ -49,21 +49,21 @@ Loss is concentrated in drought years, not uniform. Two region totals (see
 
 | Metric | Single | Four-zone |
 |---|--:|--:|
-| Region net observed (AF) | −342,376 | −353,193 |
-| Region net normalized (AF) | −336,518 | −321,098 |
-| Observed avg loss rate (AF/yr) | 16,265 | 16,573 |
-| Normalized avg loss rate (AF/yr) | 12,943 | 12,350 |
+| Region net observed (AF) | −451,810 | −460,903 |
+| Region net normalized (AF) | −438,402 | −410,732 |
+| Observed avg loss rate (AF/yr) | 21,397 | 21,534 |
+| Normalized avg loss rate (AF/yr) | 16,862 | 15,797 |
 
 Storage change by Sacramento Valley Index water-year type (single method):
 
 | Condition | Years | Total ΔStorage (AF) | Avg per year |
 |---|--:|--:|--:|
-| Wet | 5 | **+229,218** | +45,844 |
-| Above Normal | 5 | **+129,856** | +25,971 |
-| Below Normal | 5 | **−137,809** | −27,562 |
-| Dry | 6 | **−247,728** | −41,288 |
-| Critical | 5 | **−315,914** | −63,183 |
-| Region net (WY 2000–2025) | 26 | **−342,376** | — |
+| Wet | 5 | **+305,035** | +61,007 |
+| Above Normal | 5 | **+172,963** | +34,593 |
+| Below Normal | 5 | **−181,380** | −36,276 |
+| Dry | 6 | **−325,690** | −54,282 |
+| Critical | 5 | **−422,738** | −84,548 |
+| Region net (WY 2000–2025) | 26 | **−451,810** | — |
 
 Year-type classification uses DWR's official **Sacramento Valley Index**
 (Northern Sierra 8-Station Index).
@@ -74,12 +74,16 @@ Year-type classification uses DWR's official **Sacramento Valley Index**
 - **GWE:** spring composite (March mean, Good-quality DWR records only) of the
   polygon's RMS well. Each polygon is baseline-anchored to the first WY
   1999–2025 year with a Good March measurement.
-- **Specific yield:** polygon-by-polygon, from DWR's SVSim Texture Data
-  (Sacramento Valley Simulation Model). Coarse-grained sediments → 0.15,
-  fine-grained → 0.05, area-weighted by borehole lithology in the 0–500 ft
-  below-ground analysis window (≥200 ft of valid lithology required per
-  borehole). All 27 SCNY polygons resolve to a real SVSim value (no
-  fallbacks); Sy ranges **0.056 to 0.099**.
+- **Specific yield:** a **uniform Sy = 0.10** is applied to every polygon.
+  A per-polygon Sy derived from DWR's SVSim Texture Data (Sacramento Valley
+  Simulation Model — coarse-grained sediments → 0.15, fine-grained → 0.05,
+  area-weighted by borehole lithology over the 0–500 ft below-ground window,
+  ≥200 ft of valid lithology per borehole) is still computed by
+  `scripts/build_sy_svsim.py` and written to `data/polygon_sy_svsim_*.csv`
+  for reference. All 27 polygons resolve there (no fallbacks), ranging
+  **0.0565–0.0986** with an area-weighted mean of **≈0.077**. That basis is
+  *not* used for the numbers on this page. Storage scales linearly with Sy,
+  so the SVSim basis would give a deficit roughly **30% smaller**.
 - **Area:** computed in EPSG:3310 (NAD-83 California Albers, equal-area),
   honoring holes and multipart geometry. Storage is computed over the
   `no_rangeland` SCNY footprint (296,958 ac).

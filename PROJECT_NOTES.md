@@ -56,12 +56,24 @@ avoid maintaining two coupled repos for a new agency.
       (SY=200k AFY, storage=10 MAF). Needs a project-specific basis
       (area-scale the subbasin figure to the SCNY footprint, or a GSP number).
 
-## FIRST DRAFT RESULT (WY 1999–2025, no project portfolio yet)
+## RESULT (WY 1999–2025, uniform Sy=0.10, no project portfolio yet)
 | | single | four-zone |
 |---|---:|---:|
-| Basin net observed (AF) | −342,376 | −353,193 |
-| Normalized cum 2025 (AF) | −336,518 | −321,098 |
-| Observed avg loss rate (AF/yr) | 16,265 | 16,573 |
+| Region net observed (AF) | −451,810 | −460,903 |
+| Normalized cum 2025 (AF) | −438,402 | −410,732 |
+| Observed avg loss rate (AF/yr) | 21,397 | 21,534 |
+
+**Sy = 0.10 uniform** (user decision 2026-07-09), replacing SVSim per-polygon
+(0.0565–0.0986, area-weighted mean 0.0766/0.0771). Storage scales linearly with
+Sy, so this raised the deficit ~32% (was −342,376 / −353,193 AF).
+`build_sy_svsim.py` still runs and writes `data/polygon_sy_svsim_*.csv` for
+reference; the dashboard no longer consumes it (`load_sy()` returns SY_UNIFORM).
+
+**Map labels** now follow the Vina convention: `zone[6:11]` → `07G00`.
+Aggregates keep their name (`Dunnigan`) rather than copying Vina's bug, where
+`"02-Vina-Chico"[6:11]` renders as `a-Chi`. The Vina slice still collides for
+`10N02E03R002M` / `12N01E03R002M` (both `03R00`), so those keep a township
+prefix: `10N 03R00` / `12N 03R00`. 27/27 unique.
 Preview: `python -m http.server` in the repo, open index.html (launch.json
 "scny-storage" in butte_github/.claude). NOTE: screenshot tool stalls on
 Leaflet CDN tiles — verified structurally instead; renders in a real browser.

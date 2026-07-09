@@ -94,7 +94,13 @@ ZONE_COLORS = {
 }
 ZONE_BOUNDARY_INK = "#1a1612"
 
-SY_DEFAULT = 0.10  # fallback only — see Sy lookup loader
+# Specific yield: a UNIFORM Sy is applied to every polygon (user decision,
+# 2026-07-09). scripts/build_sy_svsim.py still derives per-polygon Sy from DWR
+# SVSim Texture Data and writes data/polygon_sy_svsim_*.csv for reference, but
+# the dashboard no longer consumes it. The SVSim area-weighted mean was 0.0766
+# (single) / 0.0771 (four-zone), so a flat 0.10 scales storage by ~1.30x.
+SY_UNIFORM = 0.10
+SY_SOURCE_LABEL = f"uniform {SY_UNIFORM:.2f}"
 
 # Sacramento Valley Index water-year types (DWR Northern Sierra 8-Station Index).
 SVI_YEAR_TYPE = {
@@ -195,21 +201,23 @@ def polygon_centroid(rings):
             sum(p[1] for p in flat) / len(flat))
 
 
-# Map label: SWN "13N01W07G001M" -> "07G" (section + tract letter). Aggregate
-# polygons (e.g. "Dunnigan") keep their name.
+# Map label: the Vina convention — SWN "13N01W07G001M" -> "07G00", i.e. the
+# zone[6:11] slice (section + tract letter + the first two sequence digits).
+# Aggregate polygons keep their own name ("Dunnigan"); Vina slices those too,
+# which is why its Chico cell renders as "a-Chi".
 SWN_RE = re.compile(r"^\d{2}[NS]\d{2}[EW]\d{2}[A-Z]\d{3}[A-Z]?$")
 
 
 def polygon_label(zone: str) -> str:
-    return zone[6:9] if SWN_RE.match(zone) else zone
+    return zone[6:11] if SWN_RE.match(zone) else zone
 
 
 def build_label_map(polygons_meta) -> dict:
     """{zone_label: short map label}, disambiguating collisions.
 
-    Section+letter alone is not unique across townships (e.g. 10N02E03R002M
-    and 12N01E03R002M both reduce to "03R"), so colliding SWN labels get their
-    township prefixed: "10N 03R" / "12N 03R".
+    The Vina slice is not unique across townships — 10N02E03R002M and
+    12N01E03R002M both reduce to "03R00" — so colliding SWN labels get their
+    township prefixed: "10N 03R00" / "12N 03R00".
     """
     base = {p["zone_label"]: polygon_label(p["zone_label"]) for p in polygons_meta}
     counts = Counter(base.values())
@@ -285,36 +293,15 @@ def yoy_deltas(cumulative: dict) -> dict:
     return deltas
 
 
-# --- Sy loader with fallback ---------------------------------------------
-def load_sy(csv_path: Path, polygons_meta: list) -> dict:
-    """Returns {zone_label: Sy}.
+# --- Sy loader -----------------------------------------------------------
+def load_sy(polygons_meta: list) -> dict:
+    """Returns {zone_label: Sy} — a uniform SY_UNIFORM for every polygon.
 
-    Polygons missing from polygon_sy_svsim.csv (or with empty Sy) get the
-    basin area-weighted mean of the polygons that DID resolve.  Prints which
-    polygons fell back so the user knows.
+    The SVSim-derived per-polygon values are still produced by
+    scripts/build_sy_svsim.py into data/polygon_sy_svsim_*.csv for reference,
+    but are deliberately not consumed here.
     """
-    out = {}
-    if not csv_path.exists():
-        print(f"WARNING: {csv_path} missing — falling back to uniform Sy={SY_DEFAULT}")
-        return {p["zone_label"]: SY_DEFAULT for p in polygons_meta}
-    with csv_path.open() as f:
-        for row in csv.DictReader(f):
-            if row.get("sy"):
-                out[row["zone_label"]] = float(row["sy"])
-    # Compute basin area-weighted mean for fallback.
-    area_lookup = {p["zone_label"]: p.get("area_acres") or polygon_area_acres(p["rings"])
-                   for p in polygons_meta}
-    sum_sy_area = sum(out[z] * area_lookup[z] for z in out)
-    sum_area = sum(area_lookup[z] for z in out)
-    basin_mean = sum_sy_area / sum_area if sum_area else SY_DEFAULT
-    missing = [p["zone_label"] for p in polygons_meta if p["zone_label"] not in out]
-    if missing:
-        print(f"  fallback Sy={basin_mean:.4f} (area-weighted basin mean) for "
-              f"{len(missing)} polygons w/o SVSim borehole coverage:")
-        for z in missing:
-            print(f"    - {z}")
-            out[z] = basin_mean
-    return out
+    return {p["zone_label"]: SY_UNIFORM for p in polygons_meta}
 
 
 # --- color ramp -----------------------------------------------------------
@@ -741,14 +728,7 @@ def compute_method(method, wells_meta, meas, portfolio):
                     for w in wells_meta}
     well_lookup = {w["well_name"]: w for w in wells_meta}
 
-    sy_csv = DATA_DIR / f"polygon_sy_svsim_{suffix}.csv"
-    sy_svsim_set = set()
-    if sy_csv.exists():
-        with sy_csv.open() as f:
-            for row in csv.DictReader(f):
-                if row.get("sy"):
-                    sy_svsim_set.add(row["zone_label"])
-    sy_lookup = load_sy(sy_csv, polygons)
+    sy_lookup = load_sy(polygons)
 
     project_by_zone = {p["polygon"]: p for p in portfolio.get("projects", [])}
     project_total_afy = sum(p["af_per_yr"] for p in portfolio.get("projects", []))
@@ -889,7 +869,7 @@ def compute_method(method, wells_meta, meas, portfolio):
             "baseline_gwe": baseline_gwe,
             "endpoint_gwe": endpoint_gwe,
             "sy": round(sy_p, 4),
-            "sy_source": "SVSim" if zone in sy_svsim_set else "region-mean fallback",
+            "sy_source": SY_SOURCE_LABEL,
             "endpoint_cum_storage_AF": round(endpoint_cum, 0),
             "avg_dgwe_ft_per_yr": round(avg_dgwe, 3),
             "avg_rate_AF_per_yr": round(avg_rate, 1),

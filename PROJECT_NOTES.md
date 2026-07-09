@@ -117,9 +117,13 @@ Three separate defects, all in the rendering layer (storage numbers unaffected):
    re-fit, guarded by `map._needsFit` so a user's pan/zoom isn't clobbered.
    Region now fills 92% of map height.
 3. **Legibility.** No way to see the zones; 27 cells all wore the same dark
-   0.8px stroke. Added: "Color by" mode (loss-rate ramp ↔ categorical zone),
-   a zone-boundary overlay (2.6px `#1a1612`, toggleable), and a surface-colour
-   hairline between cells (`#fafaf7` @0.9) so cells read as tiles.
+   0.8px stroke. Added: "Color by" mode (loss-rate ramp ↔ categorical zone) and
+   a zone-boundary overlay (2.6px `#1a1612`, toggleable, **four-zone only** —
+   single-method cells cross zone lines by design). Cells share their edges,
+   divided by a fine muted hairline (`#5b5547` @0.6, opacity 0.9), bold
+   (`#1a1612` @2.4) on hover/flash. A surface-colour hairline was tried first
+   and reverted: on a choropleth adjacency IS the data, and a light stroke
+   straddling a shared edge reads as a gap where the tessellation has none.
    Zone palette validated with the dataviz six checks (`--pairs all`, surface
    `#fafaf7`): CVD ΔE 13.3, all four ≥3:1 contrast.
    Other=#2a78d6 blue, CCWD=#4a3aa7 violet, RD108=#008300 green,

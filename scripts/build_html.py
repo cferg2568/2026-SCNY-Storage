@@ -325,14 +325,17 @@ MAP_JS = r"""
     return html;
   }
 
-  // Cells are separated by a hairline in the page surface colour (a "surface
-  // gap") rather than a dark outline, so 27 cells read as tiles instead of a
-  // wire mesh and the heavier zone boundary can dominate.
-  const CELL_STROKE = '#fafaf7';
-  const CELL_WEIGHT = 0.9;
+  // Cells share their edges — adjacency IS the data on a choropleth — so they
+  // are divided by a fine muted hairline, not a surface-coloured gap. A light
+  // stroke straddling the shared edge reads as a gap between polygons, which
+  // is wrong: the tessellation has no gaps. Bold only on hover / flash.
+  const CELL_STROKE = '#5b5547';
+  const CELL_WEIGHT = 0.6;
+  const CELL_OPACITY = 0.9;
   const FILL_OPACITY = 0.72;
   const ZONE_WEIGHT = 2.6;
   const HOVER_INK = '#1a1612';
+  const HOVER_WEIGHT = 2.4;
 
   function polyFill(p, mode) {
     if (mode === 'zone') return (window.ZONE_COLORS || {})[p.ma] || '#b0b0b0';
@@ -375,17 +378,19 @@ MAP_JS = r"""
       const poly = L.polygon(p.rings, {
         color: CELL_STROKE,
         weight: CELL_WEIGHT,
-        opacity: 1,
+        opacity: CELL_OPACITY,
         fillColor: polyFill(p, 'loss'),
         fillOpacity: FILL_OPACITY,
       });
       poly._meta = p;
       poly.bindPopup(buildPopupHtml(p), { maxWidth: 380, autoPan: true });
       poly.on('mouseover', function() {
-        this.setStyle({ weight: 2.4, color: HOVER_INK }); this.bringToFront();
+        this.setStyle({ weight: HOVER_WEIGHT, color: HOVER_INK, opacity: 1 });
+        this.bringToFront();
       });
       poly.on('mouseout', function() {
-        if (!this._isFlashing) this.setStyle({ weight: CELL_WEIGHT, color: CELL_STROKE });
+        if (!this._isFlashing) this.setStyle({
+          weight: CELL_WEIGHT, color: CELL_STROKE, opacity: CELL_OPACITY });
       });
       polyLayer.addLayer(poly);
 
@@ -417,21 +422,25 @@ MAP_JS = r"""
       });
     });
 
-    // Zone outlines: the structural layer. Drawn over the cell fills but under
-    // the well markers and labels.
+    // Zone outlines: the structural layer, drawn over the cell fills but under
+    // the well markers and labels. Only meaningful for the four-zone method —
+    // in the single tessellation the cells deliberately cross zone lines, so
+    // drawing those lines would imply a structure the polygons do not have.
     const zoneLayer = L.layerGroup();
-    (window.ZONE_BOUNDARIES || []).forEach(z => {
-      zoneLayer.addLayer(L.polygon(z.rings, {
-        fill: false,
-        color: window.ZONE_BOUNDARY_INK || '#1a1612',
-        weight: ZONE_WEIGHT,
-        opacity: 0.95,
-        interactive: false,
-      }));
-    });
+    if (method === 'four-zone') {
+      (window.ZONE_BOUNDARIES || []).forEach(z => {
+        zoneLayer.addLayer(L.polygon(z.rings, {
+          fill: false,
+          color: window.ZONE_BOUNDARY_INK || '#1a1612',
+          weight: ZONE_WEIGHT,
+          opacity: 0.95,
+          interactive: false,
+        }));
+      });
+    }
 
     polyLayer.addTo(map);
-    zoneLayer.addTo(map);
+    if (method === 'four-zone') zoneLayer.addTo(map);
     wellLayer.addTo(map);
     labelLayer.addTo(map);
     map.fitBounds(polyLayer.getBounds(), { padding: [14, 14] });
@@ -781,10 +790,29 @@ def _render_method_section(method, results, portfolio, zone_colors=None):
             f'<li><strong>{label}:</strong> {", ".join(yrs)} ({len(yrs)} years)</li>')
 
     zone_colors = zone_colors or {}
+    # The zone-boundary overlay only applies to the four-zone method; in the
+    # single tessellation the cells cross zone lines by design.
+    has_zone_overlay = method == "four-zone"
+    zone_toggle_html = (
+        '<label class="map-toggle">'
+        f'<input type="checkbox" id="zone-toggle-{method}" checked/>'
+        '<span>Zone boundaries</span></label>'
+    ) if has_zone_overlay else ""
+    zone_boundary_key = (
+        '<div><span class="zoneline"></span> Zone boundary</div>'
+    ) if has_zone_overlay else ""
     zone_legend_swatches = "".join(
         f'<div><span class="sw" style="background:{zone_colors[z]}"></span> {z}'
         f' <span style="color:var(--ink-muted);">({zone_counts.get(z, 0)})</span></div>'
         for z in ZONE_ORDER if z in zone_colors
+    )
+    zone_boundary_sentence = (
+        ' The heavy dark outline is the <strong>zone boundary</strong> '
+        '(CCWD, RD108, Dunnigan, Other); polygons within a zone are divided by '
+        'a fine hairline.'
+        if has_zone_overlay else
+        ' Polygons are divided by a fine hairline; cells here are one basin-wide '
+        'tessellation and deliberately cross zone lines, so no zone boundary is drawn.'
     )
 
     method_pretty = METHOD_LABEL[method]
@@ -855,7 +883,7 @@ def _render_method_section(method, results, portfolio, zone_colors=None):
 
 <h2>Where the region loses storage — by polygon</h2>
 
-<p>The map below colors each polygon by its <strong>average observed storage loss rate</strong> (AF/yr) across its measurement record. Light green = polygon is gaining storage; oranges → reds = magnitude of average annual loss. Switch <strong>Color by</strong> to <em>Management zone</em> to see which zone each cell belongs to instead. The heavy dark outline is the <strong>zone boundary</strong> (CCWD, RD108, Dunnigan, Other); thin light hairlines separate individual polygons. Click a polygon for full detail including the year-type-normalized rate.</p>
+<p>The map below colors each polygon by its <strong>average observed storage loss rate</strong> (AF/yr) across its measurement record. Light green = polygon is gaining storage; oranges → reds = magnitude of average annual loss. Switch <strong>Color by</strong> to <em>Management zone</em> to see which zone each cell belongs to instead.{zone_boundary_sentence} Hover a polygon to bring its outline forward; click it for full detail including the year-type-normalized rate.</p>
 
 <div class="map-toolbar">
   <span class="map-toolbar-label">Color by:</span>
@@ -876,10 +904,7 @@ def _render_method_section(method, results, portfolio, zone_colors=None):
     <input type="checkbox" id="fill-toggle-{method}" checked/>
     <span>Polygon fill</span>
   </label>
-  <label class="map-toggle">
-    <input type="checkbox" id="zone-toggle-{method}" checked/>
-    <span>Zone boundaries</span>
-  </label>
+  {zone_toggle_html}
   <label class="map-toggle">
     <input type="checkbox" id="label-toggle-{method}" checked/>
     <span>Section labels</span>
@@ -895,7 +920,7 @@ def _render_method_section(method, results, portfolio, zone_colors=None):
     <div><span class="sw" style="background:#cb7740"></span> Loss &lt; 1,500</div>
     <div><span class="sw" style="background:#a84a2c"></span> Loss &lt; 2,500</div>
     <div><span class="sw" style="background:#7c2820"></span> Loss ≥ 2,500</div>
-    <div><span class="zoneline"></span> Zone boundary</div>
+    {zone_boundary_key}
     <div><span class="dot" style="background:#1f1f1f"></span> RMS well</div>
   </div>
 </div>
@@ -903,11 +928,11 @@ def _render_method_section(method, results, portfolio, zone_colors=None):
   <div class="map-legend-title">Management zone (polygon count)</div>
   <div class="map-legend-swatches">
     {zone_legend_swatches}
-    <div><span class="zoneline"></span> Zone boundary</div>
+    {zone_boundary_key}
     <div><span class="dot" style="background:#1f1f1f"></span> RMS well</div>
   </div>
 </div>
-<div class="figcaption">Figure 4. Click any polygon for full detail. <strong>Color by</strong> switches between the loss-rate ramp and categorical zone colors; <strong>Zone boundaries</strong> draws the four management-zone outlines. Toggle the basemap on to see streets / parcels / hydrology under the cells; toggle the fill off to see what's underneath without re-coloring. Click any row in the tables below to fly to that polygon and flash it briefly.</div>
+<div class="figcaption">Figure 4. Click any polygon for full detail. <strong>Color by</strong> switches between the loss-rate ramp and categorical zone colors. Toggle the basemap on to see streets / parcels / hydrology under the cells; toggle the fill off to see what's underneath without re-coloring. Click any row in the tables below to fly to that polygon and flash it briefly.</div>
 
 <h2>Per-polygon detail (technical)</h2>
 <table>

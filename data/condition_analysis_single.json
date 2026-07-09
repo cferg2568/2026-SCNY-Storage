@@ -1,0 +1,853 @@
+{
+  "year_type_classification": "Sacramento Valley Index (Northern Sierra 8-Station Index)",
+  "year_types_by_year": {
+    "1999": "Wet",
+    "2000": "Above Normal",
+    "2001": "Dry",
+    "2002": "Dry",
+    "2003": "Above Normal",
+    "2004": "Below Normal",
+    "2005": "Above Normal",
+    "2006": "Wet",
+    "2007": "Dry",
+    "2008": "Critical",
+    "2009": "Dry",
+    "2010": "Below Normal",
+    "2011": "Wet",
+    "2012": "Below Normal",
+    "2013": "Dry",
+    "2014": "Critical",
+    "2015": "Critical",
+    "2016": "Below Normal",
+    "2017": "Wet",
+    "2018": "Below Normal",
+    "2019": "Wet",
+    "2020": "Dry",
+    "2021": "Critical",
+    "2022": "Critical",
+    "2023": "Wet",
+    "2024": "Above Normal",
+    "2025": "Above Normal"
+  },
+  "polygons": [
+    {
+      "zone_label": "13N01W07G001M",
+      "name": "13N01W07G001M",
+      "ma": "Other",
+      "ma_full": "",
+      "area_ac": 10010.5,
+      "baseline_year": 1999,
+      "endpoint_year": 2025,
+      "span_years": 26,
+      "baseline_gwe": 46.87,
+      "endpoint_gwe": 17.280666666666665,
+      "sy": 0.0743,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": -22008.0,
+      "avg_dgwe_ft_per_yr": -1.138,
+      "bucket_storage_AF": {
+        "wet": 15745.0,
+        "an": 16567.0,
+        "bn": -9633.0,
+        "dry": -19398.0,
+        "critical": -25289.0
+      },
+      "bucket_polygon_years": {
+        "wet": 5,
+        "an": 5,
+        "bn": 5,
+        "dry": 6,
+        "critical": 5
+      }
+    },
+    {
+      "zone_label": "14N02W29J001M",
+      "name": "14N02W29J001M",
+      "ma": "CCWD",
+      "ma_full": "",
+      "area_ac": 8818.8,
+      "baseline_year": 1999,
+      "endpoint_year": 2015,
+      "span_years": 16,
+      "baseline_gwe": 97.3,
+      "endpoint_gwe": 18.0,
+      "sy": 0.0729,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": -50981.0,
+      "avg_dgwe_ft_per_yr": -4.956,
+      "bucket_storage_AF": {
+        "wet": -1244.0,
+        "an": -4500.0,
+        "bn": -7673.0,
+        "dry": -7348.0,
+        "critical": -30216.0
+      },
+      "bucket_polygon_years": {
+        "wet": 2,
+        "an": 3,
+        "bn": 3,
+        "dry": 5,
+        "critical": 3
+      }
+    },
+    {
+      "zone_label": "13N01E11A001M",
+      "name": "13N01E11A001M",
+      "ma": "RD108",
+      "ma_full": "",
+      "area_ac": 5596.2,
+      "baseline_year": 1999,
+      "endpoint_year": 2025,
+      "span_years": 26,
+      "baseline_gwe": 28.79,
+      "endpoint_gwe": 28.5,
+      "sy": 0.0972,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": -158.0,
+      "avg_dgwe_ft_per_yr": -0.011,
+      "bucket_storage_AF": {
+        "wet": 4169.0,
+        "an": 1591.0,
+        "bn": -903.0,
+        "dry": -4857.0,
+        "critical": -158.0
+      },
+      "bucket_polygon_years": {
+        "wet": 5,
+        "an": 5,
+        "bn": 5,
+        "dry": 6,
+        "critical": 5
+      }
+    },
+    {
+      "zone_label": "14N02W13N001M",
+      "name": "14N02W13N001M",
+      "ma": "Other",
+      "ma_full": "",
+      "area_ac": 10731.9,
+      "baseline_year": 2000,
+      "endpoint_year": 2025,
+      "span_years": 25,
+      "baseline_gwe": 38.45,
+      "endpoint_gwe": 28.95,
+      "sy": 0.0783,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": -7983.0,
+      "avg_dgwe_ft_per_yr": -0.38,
+      "bucket_storage_AF": {
+        "wet": 15441.0,
+        "an": 5504.0,
+        "bn": -5147.0,
+        "dry": -26680.0,
+        "critical": 2899.0
+      },
+      "bucket_polygon_years": {
+        "wet": 5,
+        "an": 4,
+        "bn": 5,
+        "dry": 6,
+        "critical": 5
+      }
+    },
+    {
+      "zone_label": "15N01W05G001M",
+      "name": "15N01W05G001M",
+      "ma": "Other",
+      "ma_full": "",
+      "area_ac": 20104.8,
+      "baseline_year": 1999,
+      "endpoint_year": 2025,
+      "span_years": 26,
+      "baseline_gwe": 35.62,
+      "endpoint_gwe": 43.52,
+      "sy": 0.0759,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": 12055.0,
+      "avg_dgwe_ft_per_yr": 0.304,
+      "bucket_storage_AF": {
+        "wet": 18489.0,
+        "an": 18413.0,
+        "bn": -8825.0,
+        "dry": -18006.0,
+        "critical": 1984.0
+      },
+      "bucket_polygon_years": {
+        "wet": 5,
+        "an": 5,
+        "bn": 5,
+        "dry": 6,
+        "critical": 5
+      }
+    },
+    {
+      "zone_label": "15N02W19E001M",
+      "name": "15N02W19E001M",
+      "ma": "Other",
+      "ma_full": "",
+      "area_ac": 24364.5,
+      "baseline_year": 1999,
+      "endpoint_year": 2025,
+      "span_years": 26,
+      "baseline_gwe": 79.96,
+      "endpoint_gwe": 72.11,
+      "sy": 0.0689,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": -13178.0,
+      "avg_dgwe_ft_per_yr": -0.302,
+      "bucket_storage_AF": {
+        "wet": 11636.0,
+        "an": 2823.0,
+        "bn": -8114.0,
+        "dry": -13346.0,
+        "critical": -6178.0
+      },
+      "bucket_polygon_years": {
+        "wet": 5,
+        "an": 5,
+        "bn": 5,
+        "dry": 6,
+        "critical": 5
+      }
+    },
+    {
+      "zone_label": "14N01E35P003M",
+      "name": "14N01E35P003M",
+      "ma": "RD108",
+      "ma_full": "",
+      "area_ac": 11563.0,
+      "baseline_year": 2011,
+      "endpoint_year": 2025,
+      "span_years": 14,
+      "baseline_gwe": 32.4145,
+      "endpoint_gwe": 32.89738709677419,
+      "sy": 0.0806,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": 450.0,
+      "avg_dgwe_ft_per_yr": 0.034,
+      "bucket_storage_AF": {
+        "wet": 11924.0,
+        "an": 1395.0,
+        "bn": -6544.0,
+        "dry": -4669.0,
+        "critical": -1656.0
+      },
+      "bucket_polygon_years": {
+        "wet": 3,
+        "an": 2,
+        "bn": 3,
+        "dry": 2,
+        "critical": 4
+      }
+    },
+    {
+      "zone_label": "13N01W13P003M",
+      "name": "13N01W13P003M",
+      "ma": "RD108",
+      "ma_full": "",
+      "area_ac": 14279.9,
+      "baseline_year": 1999,
+      "endpoint_year": 2025,
+      "span_years": 26,
+      "baseline_gwe": 29.93,
+      "endpoint_gwe": 19.897333333333332,
+      "sy": 0.0758,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": -10860.0,
+      "avg_dgwe_ft_per_yr": -0.386,
+      "bucket_storage_AF": {
+        "wet": 15157.0,
+        "an": 2369.0,
+        "bn": -8517.0,
+        "dry": -6615.0,
+        "critical": -13253.0
+      },
+      "bucket_polygon_years": {
+        "wet": 5,
+        "an": 5,
+        "bn": 5,
+        "dry": 6,
+        "critical": 5
+      }
+    },
+    {
+      "zone_label": "12N01E06D004M",
+      "name": "12N01E06D004M",
+      "ma": "RD108",
+      "ma_full": "",
+      "area_ac": 15169.5,
+      "baseline_year": 1999,
+      "endpoint_year": 2025,
+      "span_years": 26,
+      "baseline_gwe": 29.29,
+      "endpoint_gwe": 16.84,
+      "sy": 0.0784,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": -14807.0,
+      "avg_dgwe_ft_per_yr": -0.479,
+      "bucket_storage_AF": {
+        "wet": 26192.0,
+        "an": 6010.0,
+        "bn": -12575.0,
+        "dry": -16984.0,
+        "critical": -17449.0
+      },
+      "bucket_polygon_years": {
+        "wet": 5,
+        "an": 5,
+        "bn": 5,
+        "dry": 6,
+        "critical": 5
+      }
+    },
+    {
+      "zone_label": "14N02W22A005M",
+      "name": "14N02W22A005M",
+      "ma": "Other",
+      "ma_full": "",
+      "area_ac": 6830.3,
+      "baseline_year": 2020,
+      "endpoint_year": 2025,
+      "span_years": 5,
+      "baseline_gwe": 22.28,
+      "endpoint_gwe": 21.138967741935485,
+      "sy": 0.0653,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": -509.0,
+      "avg_dgwe_ft_per_yr": -0.228,
+      "bucket_storage_AF": {
+        "wet": 9620.0,
+        "an": 4119.0,
+        "bn": 0.0,
+        "dry": 0.0,
+        "critical": -14248.0
+      },
+      "bucket_polygon_years": {
+        "wet": 1,
+        "an": 2,
+        "bn": 0,
+        "dry": 0,
+        "critical": 2
+      }
+    },
+    {
+      "zone_label": "14N03W14Q003M",
+      "name": "14N03W14Q003M",
+      "ma": "Other",
+      "ma_full": "",
+      "area_ac": 8614.8,
+      "baseline_year": 2001,
+      "endpoint_year": 2022,
+      "span_years": 21,
+      "baseline_gwe": 54.22,
+      "endpoint_gwe": -16.88,
+      "sy": 0.0751,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": -46000.0,
+      "avg_dgwe_ft_per_yr": -3.386,
+      "bucket_storage_AF": {
+        "wet": -10524.0,
+        "an": 5230.0,
+        "bn": -14471.0,
+        "dry": -8249.0,
+        "critical": -17986.0
+      },
+      "bucket_polygon_years": {
+        "wet": 4,
+        "an": 2,
+        "bn": 5,
+        "dry": 5,
+        "critical": 5
+      }
+    },
+    {
+      "zone_label": "14N01W04K003M",
+      "name": "14N01W04K003M",
+      "ma": "Other",
+      "ma_full": "",
+      "area_ac": 26918.6,
+      "baseline_year": 1999,
+      "endpoint_year": 2022,
+      "span_years": 23,
+      "baseline_gwe": 31.93,
+      "endpoint_gwe": 27.93,
+      "sy": 0.0824,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": -8872.0,
+      "avg_dgwe_ft_per_yr": -0.174,
+      "bucket_storage_AF": {
+        "wet": 15416.0,
+        "an": 5545.0,
+        "bn": -3438.0,
+        "dry": -25619.0,
+        "critical": -776.0
+      },
+      "bucket_polygon_years": {
+        "wet": 4,
+        "an": 3,
+        "bn": 5,
+        "dry": 6,
+        "critical": 5
+      }
+    },
+    {
+      "zone_label": "13N02W20H002M",
+      "name": "13N02W20H002M",
+      "ma": "CCWD",
+      "ma_full": "",
+      "area_ac": 9617.2,
+      "baseline_year": 2007,
+      "endpoint_year": 2025,
+      "span_years": 18,
+      "baseline_gwe": 207.48,
+      "endpoint_gwe": 179.88,
+      "sy": 0.0893,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": -23703.0,
+      "avg_dgwe_ft_per_yr": -1.533,
+      "bucket_storage_AF": {
+        "wet": 520.0,
+        "an": 4118.0,
+        "bn": -1804.0,
+        "dry": -601.0,
+        "critical": -25936.0
+      },
+      "bucket_polygon_years": {
+        "wet": 4,
+        "an": 2,
+        "bn": 4,
+        "dry": 3,
+        "critical": 5
+      }
+    },
+    {
+      "zone_label": "13N02W12L001M",
+      "name": "13N02W12L001M",
+      "ma": "CCWD",
+      "ma_full": "",
+      "area_ac": 4180.6,
+      "baseline_year": 2000,
+      "endpoint_year": 2025,
+      "span_years": 25,
+      "baseline_gwe": 69.59,
+      "endpoint_gwe": 17.79,
+      "sy": 0.0679,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": -14704.0,
+      "avg_dgwe_ft_per_yr": -2.072,
+      "bucket_storage_AF": {
+        "wet": 5460.0,
+        "an": 1315.0,
+        "bn": -3548.0,
+        "dry": -10872.0,
+        "critical": -7059.0
+      },
+      "bucket_polygon_years": {
+        "wet": 5,
+        "an": 4,
+        "bn": 5,
+        "dry": 6,
+        "critical": 5
+      }
+    },
+    {
+      "zone_label": "13N01W22P002M",
+      "name": "13N01W22P002M",
+      "ma": "CCWD",
+      "ma_full": "",
+      "area_ac": 6030.6,
+      "baseline_year": 2000,
+      "endpoint_year": 2008,
+      "span_years": 8,
+      "baseline_gwe": 29.96,
+      "endpoint_gwe": 39.06,
+      "sy": 0.07,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": 3841.0,
+      "avg_dgwe_ft_per_yr": 1.138,
+      "bucket_storage_AF": {
+        "wet": 837.0,
+        "an": 1674.0,
+        "bn": 837.0,
+        "dry": -5375.0,
+        "critical": 5868.0
+      },
+      "bucket_polygon_years": {
+        "wet": 1,
+        "an": 2,
+        "bn": 1,
+        "dry": 3,
+        "critical": 1
+      }
+    },
+    {
+      "zone_label": "14N03W24C001M",
+      "name": "14N03W24C001M",
+      "ma": "CCWD",
+      "ma_full": "",
+      "area_ac": 6994.1,
+      "baseline_year": 2000,
+      "endpoint_year": 2020,
+      "span_years": 20,
+      "baseline_gwe": 84.91,
+      "endpoint_gwe": 36.31,
+      "sy": 0.0796,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": -27057.0,
+      "avg_dgwe_ft_per_yr": -2.43,
+      "bucket_storage_AF": {
+        "wet": -863.0,
+        "an": 1949.0,
+        "bn": -8434.0,
+        "dry": -6931.0,
+        "critical": -12777.0
+      },
+      "bucket_polygon_years": {
+        "wet": 4,
+        "an": 2,
+        "bn": 5,
+        "dry": 6,
+        "critical": 3
+      }
+    },
+    {
+      "zone_label": "13N02W15J001M",
+      "name": "13N02W15J001M",
+      "ma": "CCWD",
+      "ma_full": "",
+      "area_ac": 6249.7,
+      "baseline_year": 1999,
+      "endpoint_year": 2014,
+      "span_years": 15,
+      "baseline_gwe": 103.32,
+      "endpoint_gwe": 46.92,
+      "sy": 0.0769,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": -27106.0,
+      "avg_dgwe_ft_per_yr": -3.76,
+      "bucket_storage_AF": {
+        "wet": 5.0,
+        "an": -1129.0,
+        "bn": -3936.0,
+        "dry": -12416.0,
+        "critical": -9629.0
+      },
+      "bucket_polygon_years": {
+        "wet": 2,
+        "an": 3,
+        "bn": 3,
+        "dry": 5,
+        "critical": 2
+      }
+    },
+    {
+      "zone_label": "12N01W05B001M",
+      "name": "12N01W05B001M",
+      "ma": "Dunnigan",
+      "ma_full": "",
+      "area_ac": 13239.9,
+      "baseline_year": 1999,
+      "endpoint_year": 2025,
+      "span_years": 26,
+      "baseline_gwe": 60.6,
+      "endpoint_gwe": 19.5405,
+      "sy": 0.0762,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": -41424.0,
+      "avg_dgwe_ft_per_yr": -1.579,
+      "bucket_storage_AF": {
+        "wet": 5549.0,
+        "an": 17398.0,
+        "bn": -18412.0,
+        "dry": -13857.0,
+        "critical": -32102.0
+      },
+      "bucket_polygon_years": {
+        "wet": 5,
+        "an": 5,
+        "bn": 5,
+        "dry": 6,
+        "critical": 5
+      }
+    },
+    {
+      "zone_label": "11N01E16P001M",
+      "name": "11N01E16P001M",
+      "ma": "Other",
+      "ma_full": "",
+      "area_ac": 12827.9,
+      "baseline_year": 1999,
+      "endpoint_year": 2025,
+      "span_years": 26,
+      "baseline_gwe": 28.0,
+      "endpoint_gwe": 14.132,
+      "sy": 0.0673,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": -11972.0,
+      "avg_dgwe_ft_per_yr": -0.533,
+      "bucket_storage_AF": {
+        "wet": 33583.0,
+        "an": 8720.0,
+        "bn": -9151.0,
+        "dry": -13554.0,
+        "critical": -31570.0
+      },
+      "bucket_polygon_years": {
+        "wet": 5,
+        "an": 5,
+        "bn": 5,
+        "dry": 6,
+        "critical": 5
+      }
+    },
+    {
+      "zone_label": "11N02E20K004M",
+      "name": "11N02E20K004M",
+      "ma": "Other",
+      "ma_full": "",
+      "area_ac": 15502.3,
+      "baseline_year": 1999,
+      "endpoint_year": 2025,
+      "span_years": 26,
+      "baseline_gwe": 33.47,
+      "endpoint_gwe": 27.83,
+      "sy": 0.0792,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": -6925.0,
+      "avg_dgwe_ft_per_yr": -0.217,
+      "bucket_storage_AF": {
+        "wet": 9957.0,
+        "an": 8533.0,
+        "bn": -123.0,
+        "dry": -11296.0,
+        "critical": -13997.0
+      },
+      "bucket_polygon_years": {
+        "wet": 5,
+        "an": 5,
+        "bn": 5,
+        "dry": 6,
+        "critical": 5
+      }
+    },
+    {
+      "zone_label": "10N02E09N001M",
+      "name": "10N02E09N001M",
+      "ma": "Other",
+      "ma_full": "",
+      "area_ac": 1357.7,
+      "baseline_year": 2002,
+      "endpoint_year": 2025,
+      "span_years": 23,
+      "baseline_gwe": 34.9,
+      "endpoint_gwe": 35.16,
+      "sy": 0.0698,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": 25.0,
+      "avg_dgwe_ft_per_yr": 0.011,
+      "bucket_storage_AF": {
+        "wet": 915.0,
+        "an": 922.0,
+        "bn": -73.0,
+        "dry": -651.0,
+        "critical": -1088.0
+      },
+      "bucket_polygon_years": {
+        "wet": 5,
+        "an": 4,
+        "bn": 5,
+        "dry": 4,
+        "critical": 5
+      }
+    },
+    {
+      "zone_label": "12N01E26A002M",
+      "name": "12N01E26A002M",
+      "ma": "RD108",
+      "ma_full": "",
+      "area_ac": 10089.0,
+      "baseline_year": 1999,
+      "endpoint_year": 2021,
+      "span_years": 22,
+      "baseline_gwe": 25.05,
+      "endpoint_gwe": 5.58,
+      "sy": 0.078,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": -15322.0,
+      "avg_dgwe_ft_per_yr": -0.885,
+      "bucket_storage_AF": {
+        "wet": 2061.0,
+        "an": -2696.0,
+        "bn": -1274.0,
+        "dry": -5718.0,
+        "critical": -7695.0
+      },
+      "bucket_polygon_years": {
+        "wet": 4,
+        "an": 3,
+        "bn": 5,
+        "dry": 6,
+        "critical": 4
+      }
+    },
+    {
+      "zone_label": "11N01E02D001M",
+      "name": "11N01E02D001M",
+      "ma": "RD108",
+      "ma_full": "",
+      "area_ac": 10867.1,
+      "baseline_year": 1999,
+      "endpoint_year": 2023,
+      "span_years": 24,
+      "baseline_gwe": 23.26,
+      "endpoint_gwe": 10.411,
+      "sy": 0.0762,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": -10640.0,
+      "avg_dgwe_ft_per_yr": -0.535,
+      "bucket_storage_AF": {
+        "wet": 16222.0,
+        "an": -5035.0,
+        "bn": 790.0,
+        "dry": -8675.0,
+        "critical": -13941.0
+      },
+      "bucket_polygon_years": {
+        "wet": 5,
+        "an": 3,
+        "bn": 5,
+        "dry": 6,
+        "critical": 5
+      }
+    },
+    {
+      "zone_label": "10N02E06B001M",
+      "name": "10N02E06B001M",
+      "ma": "Other",
+      "ma_full": "",
+      "area_ac": 4744.1,
+      "baseline_year": 2001,
+      "endpoint_year": 2025,
+      "span_years": 24,
+      "baseline_gwe": 38.09,
+      "endpoint_gwe": 32.18,
+      "sy": 0.0565,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": -1584.0,
+      "avg_dgwe_ft_per_yr": -0.246,
+      "bucket_storage_AF": {
+        "wet": 2137.0,
+        "an": 4567.0,
+        "bn": 866.0,
+        "dry": -78.0,
+        "critical": -9077.0
+      },
+      "bucket_polygon_years": {
+        "wet": 5,
+        "an": 4,
+        "bn": 5,
+        "dry": 5,
+        "critical": 5
+      }
+    },
+    {
+      "zone_label": "10N02E03R002M",
+      "name": "10N02E03R002M",
+      "ma": "Other",
+      "ma_full": "",
+      "area_ac": 16978.8,
+      "baseline_year": 2001,
+      "endpoint_year": 2025,
+      "span_years": 24,
+      "baseline_gwe": 27.18,
+      "endpoint_gwe": 24.98,
+      "sy": 0.0787,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": -2940.0,
+      "avg_dgwe_ft_per_yr": -0.092,
+      "bucket_storage_AF": {
+        "wet": 9137.0,
+        "an": 18694.0,
+        "bn": -1406.0,
+        "dry": -2742.0,
+        "critical": -26623.0
+      },
+      "bucket_polygon_years": {
+        "wet": 5,
+        "an": 4,
+        "bn": 5,
+        "dry": 5,
+        "critical": 5
+      }
+    },
+    {
+      "zone_label": "12N01E03R002M",
+      "name": "12N01E03R002M",
+      "ma": "RD108",
+      "ma_full": "",
+      "area_ac": 9644.0,
+      "baseline_year": 2001,
+      "endpoint_year": 2024,
+      "span_years": 23,
+      "baseline_gwe": 21.9,
+      "endpoint_gwe": 22.9,
+      "sy": 0.0871,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": 840.0,
+      "avg_dgwe_ft_per_yr": 0.043,
+      "bucket_storage_AF": {
+        "wet": 11192.0,
+        "an": 1652.0,
+        "bn": -5262.0,
+        "dry": -1911.0,
+        "critical": -4831.0
+      },
+      "bucket_polygon_years": {
+        "wet": 5,
+        "an": 3,
+        "bn": 5,
+        "dry": 5,
+        "critical": 5
+      }
+    },
+    {
+      "zone_label": "10N01E02Q002M",
+      "name": "10N01E02Q002M",
+      "ma": "Other",
+      "ma_full": "",
+      "area_ac": 5632.1,
+      "baseline_year": 2001,
+      "endpoint_year": 2025,
+      "span_years": 24,
+      "baseline_gwe": 42.41,
+      "endpoint_gwe": 40.26,
+      "sy": 0.0706,
+      "sy_source": "SVSim",
+      "endpoint_cum_storage_AF": -855.0,
+      "avg_dgwe_ft_per_yr": -0.09,
+      "bucket_storage_AF": {
+        "wet": 485.0,
+        "an": 4109.0,
+        "bn": -1039.0,
+        "dry": -1278.0,
+        "critical": -3132.0
+      },
+      "bucket_polygon_years": {
+        "wet": 5,
+        "an": 4,
+        "bn": 5,
+        "dry": 5,
+        "critical": 5
+      }
+    }
+  ],
+  "basin_total_by_condition_AF": {
+    "wet": 229218.0,
+    "an": 129856.0,
+    "bn": -137809.0,
+    "dry": -247728.0,
+    "critical": -315914.0
+  },
+  "basin_total_net_AF": -342376.0,
+  "notes": "Year-over-year storage deltas from each polygon's cumulative storage series; multi-year DWR gaps distributed evenly across the gap before bucketing. 27 polygons in the 2027 BC RMS network; baseline years are staggered per first Good-quality spring measurement."
+}

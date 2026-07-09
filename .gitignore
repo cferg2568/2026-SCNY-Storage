@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# OS / OneDrive
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / agent
+.claude/
+.vscode/
+
+# Local SVSim download cache (re-downloaded by build_sy_svsim.py)
+svsim_texture_data.csv
+raw/svsim/

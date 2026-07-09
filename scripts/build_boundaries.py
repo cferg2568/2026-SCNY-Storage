@@ -2,7 +2,7 @@
 """
 Build the SCNY boundary layer for the storage dashboard (Layer-1 groundwork).
 
-Reads (from ../Shapefiles/, never modifies):
+Reads (from raw/shapefiles/, never modifies):
   - 02_SCNY_Region_v3_no_rangeland.shp   Overall SCNY region (rangeland removed)
   - CCWD.shp                             Colusa County Water District
   - RD108.shp                            Reclamation District 108
@@ -34,7 +34,7 @@ from shapely.ops import unary_union
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
-SHP_DIR = (ROOT / ".." / "Shapefiles").resolve()
+SHP_DIR = ROOT / "raw" / "shapefiles"
 RAW_OUT = ROOT / "raw"
 RAW_OUT.mkdir(parents=True, exist_ok=True)
 

@@ -4,7 +4,7 @@ Resolve the SCNY RMS well roster: read the workbook, spatially filter to the
 SCNY region boundary, and assign each well to one of the 4 zones.
 
 Reads:
-  - ../Colusa_Yolo_RMS.xlsx        RMS wells for Colusa + Yolo counties
+  - raw/Colusa_Yolo_RMS.xlsx       RMS wells for Colusa + Yolo counties
   - raw/scny_region.geojson        SCNY dissolved boundary (from build_boundaries.py)
   - raw/scny_zones.geojson         4 zones: CCWD, RD108, Dunnigan, Other
 
@@ -27,7 +27,7 @@ from shapely.geometry import Point
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
-XLSX = (ROOT / ".." / "Colusa_Yolo_RMS.xlsx").resolve()
+XLSX = ROOT / "raw" / "Colusa_Yolo_RMS.xlsx"
 REGION = ROOT / "raw" / "scny_region.geojson"
 ZONES = ROOT / "raw" / "scny_zones.geojson"
 DATA = ROOT / "data"
